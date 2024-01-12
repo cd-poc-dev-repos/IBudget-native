@@ -39,11 +39,11 @@ export default function App() {
             let iconName;
 
             if (route.name === 'Home') {
-              iconName = focused ? 'home-outline' : 'home-outline-outline';
+              iconName = 'home-outline';
             } else if (route.name === 'Alert') {
-              iconName = focused ? 'alert-circle' : 'alert-circle-outline';
+              iconName = 'alert-circle' ;
             } else if (route.name === 'Settings') {
-              iconName = focused ? 'ios-list' : 'ios-list-outline';
+              iconName = 'ios-list';
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -53,7 +53,7 @@ export default function App() {
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Alert" component={AlertScreen} />
+        <Tab.Screen name="Alert" component={AlertScreen}  options={{ tabBarBadge: 3 }} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
