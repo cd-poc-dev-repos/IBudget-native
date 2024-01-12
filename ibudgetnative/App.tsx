@@ -1,32 +1,10 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
-
-function AlertScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Alert!</Text>
-    </View>
-  );
-}
-
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Home from './src/pages/Home';
+import Notifications from './src/pages/Notifications';
+import Settings from './src/pages/Settings';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,15 +13,15 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+          tabBarIcon: ({color, size }) => {
+            let iconName: 'home-outline' | 'alert-circle-outline' | 'settings-outline' = 'alert-circle-outline';
 
             if (route.name === 'Home') {
               iconName = 'home-outline';
             } else if (route.name === 'Alert') {
-              iconName = 'alert-circle' ;
+              iconName = 'alert-circle-outline' ;
             } else if (route.name === 'Settings') {
-              iconName = 'ios-list';
+              iconName = 'settings-outline';
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -52,9 +30,9 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Alert" component={AlertScreen}  options={{ tabBarBadge: 3 }} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Notifications" component={Notifications}  options={{ tabBarBadge: 3 }} />
+        <Tab.Screen name="Settings" component={Settings} />
       </Tab.Navigator>
     </NavigationContainer>
   );
