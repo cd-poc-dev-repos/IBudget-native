@@ -1,10 +1,15 @@
 import React from "react";
-import { Text, View } from 'react-native';
+import { Text, View, Button } from 'react-native';
 
-const Home = () => {
+interface IHome {
+  navigation: any;
+}
+
+const Home = ({ navigation }: IHome) => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Home!</Text>
+      <Button title="Enter savings" onPress={() => navigation.navigate('Savings Summary')} />
     </View>
   );
 };
