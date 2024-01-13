@@ -12,34 +12,42 @@ import SavingsEntry from './src/pages/Savings/Entry';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+const TabNav = () => {
+  return (
+    <Tab.Navigator
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({color, size }) => {
+        let iconName: 'home-outline' | 'alert-circle-outline' | 'settings-outline' = 'alert-circle-outline';
+
+        if (route.name === 'Home') {
+          iconName = 'home-outline';
+        } else if (route.name === 'Alert') {
+          iconName = 'alert-circle-outline' ;
+        } else if (route.name === 'Settings') {
+          iconName = 'settings-outline';
+        }
+
+        return <Ionicons name={iconName} size={size} color={color} />;
+      },
+      tabBarActiveTintColor: 'tomato',
+      tabBarInactiveTintColor: 'gray',
+    })}
+  >
+    <Tab.Screen name="Home" component={Home}  />
+    <Tab.Screen name="Notifications" component={Notifications}  options={{ tabBarBadge: 3 }} />
+    <Tab.Screen name="Settings" component={Settings} />
+  </Tab.Navigator>
+  )
+}
+
 export default function App() {
   return (
     <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Main" component={TabNav} />
         <Stack.Screen name="Savings Summary" component={SavingsSummary} />
-        <Stack.Screen name="Savings Entry" component={SavingsEntry} />
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({color, size }) => {
-            let iconName: 'home-outline' | 'alert-circle-outline' | 'settings-outline' = 'alert-circle-outline';
-
-            if (route.name === 'Home') {
-              iconName = 'home-outline';
-            } else if (route.name === 'Alert') {
-              iconName = 'alert-circle-outline' ;
-            } else if (route.name === 'Settings') {
-              iconName = 'settings-outline';
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Notifications" component={Notifications}  options={{ tabBarBadge: 3 }} />
-        <Tab.Screen name="Settings" component={Settings} />
-      </Tab.Navigator>
+        <Stack.Screen name="Savings Entry" component={SavingsEntry} />   
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
