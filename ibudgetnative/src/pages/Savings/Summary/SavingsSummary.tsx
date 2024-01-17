@@ -15,11 +15,12 @@ const getItemCount = (_data: unknown) => 10;
 
 type ItemProps = {
   title: string;
+  callback: () => void;
 };
 
-const Item = ({title}: ItemProps) => (
+const Item = ({title, callback }: ItemProps) => (
   <View style={{ backgroundColor: '#fff', marginTop: 5, marginBottom: 5, paddingTop: 20, paddingRight: 10, paddingBottom: 20, paddingLeft: 10 }}>
-    <Text>{title}</Text>
+    <Button title={title} onPress={callback}/>
   </View>
 );
 
@@ -37,7 +38,7 @@ const SavingsSummary = ({ navigation }: ISavingsSummaryProps) => {
       <View style={{ padding: 20 }}>
         <VirtualizedList
           initialNumToRender={4}
-          renderItem={({item}) => <Item title={item.title} />}
+          renderItem={({item}) => <Item title={item.title} callback={() => navigation.navigate('Savings Entry')}/>}
           keyExtractor={item => item.id}
           getItemCount={getItemCount}
           getItem={getItem}
