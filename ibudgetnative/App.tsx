@@ -33,9 +33,9 @@ const TabNav = () => {
       tabBarInactiveTintColor: 'gray',
     })}
   >
-    <Tab.Screen name="Home" component={Home}  />
-    <Tab.Screen name="Notifications" component={Notifications}  options={{ tabBarBadge: 3 }} />
-    <Tab.Screen name="Settings" component={Settings} />
+    <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
+    <Tab.Screen name="Notifications" component={Notifications} options={{ tabBarBadge: 3, headerShown: false }} />
+    <Tab.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
   </Tab.Navigator>
   )
 }
@@ -43,8 +43,8 @@ const TabNav = () => {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Main" component={TabNav} />
+      <Stack.Navigator screenOptions={{headerShown: true }}>
+        <Stack.Screen name="Welcome Chris" component={TabNav} />
         <Stack.Screen name="Savings Summary" component={SavingsSummary} />
         <Stack.Screen name="Savings Entry" component={SavingsEntry} />   
       </Stack.Navigator>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, VirtualizedList, Text, Button, ScrollView } from 'react-native';
+import { View, VirtualizedList, SafeAreaView, Button } from 'react-native';
 
 type ItemData = {
   id: string;
@@ -30,21 +30,15 @@ interface ISavingsSummaryProps {
 
 const SavingsSummary = ({ navigation }: ISavingsSummaryProps) => {
   return (
-    <ScrollView stickyHeaderIndices={[0]}>
-      <View style={{ backgroundColor: '#fff', height: 64, width: '100%', flexDirection: 'row', padding: 20, columnGap: 30 }}>
-        <Button title='Back' onPress={() => navigation.navigate('Home')}/>
-        <Text style={{ color: 'rgb(28, 28, 30)', fontSize: 20, fontWeight: '500' }}>Savings summary</Text>
-      </View>
-      <View style={{ padding: 20 }}>
-        <VirtualizedList
-          initialNumToRender={4}
-          renderItem={({item}) => <Item title={item.title} callback={() => navigation.navigate('Savings Entry')}/>}
-          keyExtractor={item => item.id}
-          getItemCount={getItemCount}
-          getItem={getItem}
-          />
-        </View>
-    </ScrollView>
+    <SafeAreaView style={{ padding: 20 }}>
+      <VirtualizedList
+        initialNumToRender={4}
+        renderItem={({item}) => <Item title={item.title} callback={() => navigation.navigate('Savings Entry')}/>}
+        keyExtractor={item => item.id}
+        getItemCount={getItemCount}
+        getItem={getItem}
+        />
+    </SafeAreaView>
   );
 };
 
