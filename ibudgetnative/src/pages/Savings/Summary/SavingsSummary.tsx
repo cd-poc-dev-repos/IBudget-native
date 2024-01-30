@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, VirtualizedList, SafeAreaView, Button } from 'react-native';
+import * as Service from '../../../api/Income/IncomeService';
+import { IIncome } from '../../../api/Income/IncomeService.type';
 
 type ItemData = {
   id: string;
@@ -29,6 +31,21 @@ interface ISavingsSummaryProps {
 }
 
 const SavingsSummary = ({ navigation }: ISavingsSummaryProps) => {
+  const [data, setData] = React.useState<IIncome[]>([]);
+
+  React.useEffect(() => {
+    const load = async () => {
+      const incomes = await Service.GetIncomes();
+  
+      if (!!incomes) {
+        setData(incomes);
+        console.log('incomes', incomes);
+      }
+    }
+  
+    load();
+  }, []);
+
   return (
     <SafeAreaView style={{ padding: 20 }}>
       <VirtualizedList
@@ -37,7 +54,7 @@ const SavingsSummary = ({ navigation }: ISavingsSummaryProps) => {
         keyExtractor={item => item.id}
         getItemCount={getItemCount}
         getItem={getItem}
-        />
+      />
     </SafeAreaView>
   );
 };
