@@ -11,17 +11,22 @@ const DateTimePicker = ({ placeholder }: Type.IDateTimePicker) => {
   const [show, setShow] = React.useState<boolean>(false);
   const [dateString, setDateString] = React.useState<string>();
 
-  const onChange = (event: any, selectedDate: any) => {
-    setDate(selectedDate);
-    setDateString(moment(selectedDate).format("YYYY-MM-DD"));
-  };
-
   const showOverlay = () => {
     setShow(true);
   };
 
   const hideOverlay = () => {
     setShow(false);
+  };
+
+  const onChange = (event: any, selectedDate: any) => {
+    if(event.type == "set") {
+      hideOverlay();
+      setDate(selectedDate);
+      setDateString(moment(selectedDate).format("YYYY-MM-DD"));
+    } else {
+      hideOverlay();
+    }
   };
 
   return (

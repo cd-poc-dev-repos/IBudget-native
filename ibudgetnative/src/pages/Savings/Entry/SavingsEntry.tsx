@@ -14,7 +14,6 @@ const SavingsEntry = ({ navigation }: Type.ISavingsEntry) => {
   return (
     <ScrollView style={{ padding: 20 }}>
       <DateTimePicker placeholder="enter a date" />
-      <TextEntry handleOnChange={(value) => onChange('date', value)} value={form.date} placeholder="enter the date" />
       <TextEntry handleOnChange={(value) => onChange('amount', value)} value={form.amount} placeholder="enter an amount" />
     </ScrollView>
   );
