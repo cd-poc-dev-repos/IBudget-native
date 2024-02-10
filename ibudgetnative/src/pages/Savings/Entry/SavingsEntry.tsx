@@ -1,28 +1,51 @@
 import React from "react";
-import { ScrollView, View, Button } from "react-native";
+import { ScrollView, View, Button, ActivityIndicator } from "react-native";
+import * as Service from '../../../api/Income/IncomeService';
 import TextEntry from "../../../components/TextEntry/TextEntry";
 import DateTimePicker from "../../../components/DateTimePicker/DateTimePicker";
 import * as Type from './SavingsEntry.type';
 
-const SavingsEntry = ({ navigation }: Type.ISavingsEntry) => {
-  const [form, setForm] = React.useState<Type.ISavingEntryForm>({ date: '', amount: '' })
+const SavingsEntry = ({ route, navigation }: Type.ISavingsEntry) => {
+  const { id } = route.params;
+  const [form, setForm] = React.useState<Type.ISavingEntryForm | null>(null)
 
   const onChange = (field: string, value: string) => {
-    setForm({...form, [field]: value });
+    if (!!form) setForm({...form, [field]: value });
   }
 
   const handleSave = () => {
-    console.log('form', form);
+    if (!!form) Service.UpdateIncome({ id, name: form.name, date: form.date, value: form.amount })
+    navigation.navigate('Savings Summary')
   }
+
+  React.useEffect(() => {
+    const load = async () => {
+      const incomes = await Service.GetIncomes();
+  
+      if (!!incomes) {
+        const income = incomes.find(x => x.id === id);
+        if (!!income) {
+          setForm({ name: income.name, date: income.date, amount: income.value });
+        }
+      }
+    }
+  
+    load();
+  }, []);
 
   return (
     <ScrollView style={{ padding: 20 }}>
       <View>
-        <DateTimePicker placeholder="enter a date" />
-        <TextEntry handleOnChange={(value) => onChange('amount', value)} value={form.amount} placeholder="enter an amount" />
-      </View>
-      <View style={{ backgroundColor: '#fff', position: 'absolute', bottom: 1, width: '100%' }}>
-        <Button title="Save" onPress={handleSave}/>
+        {!!form ? (
+          <>
+            <TextEntry handleOnChange={(value) => onChange('name', value)} value={form.name} placeholder="enter a name" />
+            <TextEntry handleOnChange={(value) => onChange('amount', value)} value={form.amount} placeholder="enter an amount" />
+            <DateTimePicker placeholder="enter a date" />
+            <Button title="Save" onPress={handleSave}/>
+          </>
+        ) : (
+          <ActivityIndicator size="large" color="#00ff00" />
+        )}
       </View>
     </ScrollView>
   );

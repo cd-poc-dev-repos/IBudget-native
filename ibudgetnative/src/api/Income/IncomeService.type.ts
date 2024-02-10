@@ -1,7 +1,8 @@
 interface IIncome {
-  Name: string;
-  Date: string;
-  Value: string;
+  id: string;
+  name: string;
+  date: string;
+  value: string;
 }
 
 export type { IIncome };
