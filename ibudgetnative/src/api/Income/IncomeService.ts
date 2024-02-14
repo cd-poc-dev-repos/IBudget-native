@@ -15,9 +15,8 @@ const GetIncomes = async () : Promise<Type.IIncome[] | null> => {
 
 const UpdateIncome = async (income: Type.IIncome) => {
   try {
-    console.log('income to update', income);
     const response = await Service.Put(income, 'Income');
-    console.log('putResponse', response);
+
     return true;
   } catch (error) {
     console.log(error);

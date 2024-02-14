@@ -2,5 +2,12 @@ interface IHome {
   navigation: any;
 }
 
-export type { IHome };
+interface ITableData {
+  labels: string[];
+  datasets: {
+    data: number[];
+  }[]
+}
+
+export type { IHome, ITableData };
 

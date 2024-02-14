@@ -6,8 +6,8 @@ import Home from './src/pages/Home';
 import Notifications from './src/pages/Notifications';
 import Settings from './src/pages/Settings';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import SavingsSummary from './src/pages/Savings/Summary';
-import SavingsEntry from './src/pages/Savings/Entry';
+import IncomesSummary from './src/pages/Incomes/Summary';
+import IncomesEntry from './src/pages/Incomes/Entry';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,8 +29,8 @@ const TabNav = () => {
 
         return <Ionicons name={iconName} size={size} color={color} />;
       },
-      tabBarActiveTintColor: 'tomato',
-      tabBarInactiveTintColor: 'gray',
+      tabBarActiveTintColor: '#006494',
+      tabBarInactiveTintColor: 'grey',
     })}
   >
     <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
@@ -43,10 +43,10 @@ const TabNav = () => {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: true }}>
+      <Stack.Navigator screenOptions={{headerShown: true, headerTitleStyle: { color: '#006494' } }}>
         <Stack.Screen name="Welcome Chris" component={TabNav} />
-        <Stack.Screen name="Savings Summary" component={SavingsSummary} />
-        <Stack.Screen name="Savings Entry" component={SavingsEntry} />   
+        <Stack.Screen name="Income Summary" component={IncomesSummary} />
+        <Stack.Screen name="Income Entry" component={IncomesEntry} />   
       </Stack.Navigator>
     </NavigationContainer>
   );
