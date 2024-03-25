@@ -52,7 +52,7 @@ const IncomeSummary = ({ navigation }: Type.IIncomesSummaryProps) => {
       {(!loading && !!data && !!incomeTableData) ? (
         <>
           <Income data={incomeTableData} />
-          <Pressable style={Styled.default.button} onPress={() => navigation.navigate('Income Entry', { id: -1 })}>New Income</Pressable>
+          <Pressable style={Styled.default.button} onPress={() => navigation.navigate('Income Entry', { id: -1 })}><Text style={Styled.default.text}>New Income</Text></Pressable>
           <VirtualizedList
             initialNumToRender={4}
             renderItem={({item}) => <Item title={item.title} value={item.value} callback={() => navigation.navigate('Income Entry', { id: item.id })} />}

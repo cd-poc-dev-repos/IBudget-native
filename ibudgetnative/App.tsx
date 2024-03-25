@@ -8,6 +8,8 @@ import Settings from './src/pages/Settings';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import IncomesSummary from './src/pages/Incomes/Summary';
 import IncomesEntry from './src/pages/Incomes/Entry';
+import SavingsSummary from './src/pages/Savings/Summary';
+import SavingsEntry from './src/pages/Savings/Entry';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -46,7 +48,9 @@ export default function App() {
       <Stack.Navigator screenOptions={{headerShown: true, headerTitleStyle: { color: '#006494' } }}>
         <Stack.Screen name="Welcome Chris" component={TabNav} />
         <Stack.Screen name="Income Summary" component={IncomesSummary} />
-        <Stack.Screen name="Income Entry" component={IncomesEntry} />   
+        <Stack.Screen name="Income Entry" component={IncomesEntry} />
+        <Stack.Screen name="Savings Summary" component={SavingsSummary} />
+        <Stack.Screen name="Savings Entry" component={SavingsEntry} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );

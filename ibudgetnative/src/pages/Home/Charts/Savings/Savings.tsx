@@ -1,8 +1,13 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
+import { ITableData } from "../../Home.type";
 
-const Savings = () => {
+interface IIncomeTable {
+  data: ITableData
+}
+
+const Savings = ({ data }: IIncomeTable) => {
   const screenWidth = Dimensions.get("window").width;
   const chartConfig = {
     backgroundGradientFrom: "#fff",
@@ -14,22 +19,13 @@ const Savings = () => {
     labelColor: (opacity = 1) => `#333`,
     strokeWidth: 2,
     useShadowColorFromDataset: false,
-    decimalPlaces: 0,
-  };
-
-  const chartData = {
-    labels: ["01/01", "01/02", "01/03"],
-    datasets: [
-      {
-        data: [1000, 2500, 3000],
-      },
-    ],
+    decimalPlaces: 2,
   };
 
   return (
     <LineChart
+      data={data}
       height={220}
-      data={chartData}
       width={screenWidth}
       chartConfig={chartConfig}
     />

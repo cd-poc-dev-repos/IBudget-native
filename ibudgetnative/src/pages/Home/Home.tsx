@@ -8,14 +8,20 @@ import * as Styled from "./Home.style";
 
 const Home = ({ navigation }: Type.IHome) => {
   const [incomeSummaryData, setIncomeSummaryData] = React.useState<Type.ITableData>();
+  const [savingsSummaryData, setSavingsSummaryData] = React.useState<Type.ITableData>();
 
   React.useEffect(() => {
     const load = async () => {
       try {
         const incomes = await Logic.LoadIncomeSummary();
-            
+        const savings = await Logic.LoadSavingsSummary();
+
         if (!!incomes) {
           setIncomeSummaryData(incomes);
+        }
+
+        if (!!savings) {
+          setSavingsSummaryData(savings);
         }
       } finally {
       }
@@ -28,14 +34,14 @@ const Home = ({ navigation }: Type.IHome) => {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center", width: '100%' }}>
       <ScrollView>
         <View>
-          <Text style={Styled.default.text}>Income</Text>
+          <Text style={Styled.default.title}>Income</Text>
           {!!incomeSummaryData ? <Income data={incomeSummaryData} /> : <ActivityIndicator size="large" color="#00ff00" />}
-          <Pressable style={Styled.default.button} onPress={() => navigation.navigate('Income Summary')}>Enter income</Pressable>
+          <Pressable style={Styled.default.button} onPress={() => navigation.navigate('Income Summary')}><Text style={Styled.default.text}>Enter income</Text></Pressable>
         </View>
         <View>
-          <Text style={Styled.default.text}>Savings</Text>
-          <Savings />
-          <Pressable style={Styled.default.button} disabled>Enter savings</Pressable>
+          <Text style={Styled.default.title}>Savings</Text>
+          {!!savingsSummaryData ? <Savings data={savingsSummaryData} /> : <ActivityIndicator size="large" color="#00ff00" />}
+          <Pressable style={Styled.default.button} onPress={() => navigation.navigate('Savings Summary')}><Text style={Styled.default.text}>Enter savings</Text></Pressable>
         </View>
       </ScrollView>
     </View>

@@ -1,10 +1,12 @@
 import dayjs from "dayjs";
-import * as Service from "../../api/Income/IncomeService";
+import * as IncomeService from "../../api/Income/IncomeService";
+import * as SavingsService from "../../api/Savings/SavingsService";
 import { IIncome } from "../../api/Income/IncomeService.type";
+import { ISavings } from "../../api/Savings/SavingsService.type";
 
 const LoadIncomeSummary = async () => {
   const incomesGrouped: { monthYear: string; amount: number }[] = [];
-  const incomes = await Service.GetIncomes();
+  const incomes = await IncomeService.GetIncomes();
 
   if (!incomes) return { labels: [], datasets: [] };
 
@@ -28,4 +30,30 @@ const LoadIncomeSummary = async () => {
   };
 };
 
-export { LoadIncomeSummary };
+const LoadSavingsSummary = async () => {
+  const SavingssGrouped: { monthYear: string; amount: number }[] = [];
+  const Savingss = await SavingsService.GetSavings();
+
+  if (!Savingss) return { labels: [], datasets: [] };
+
+  Savingss.forEach((Savings: ISavings) => {
+    const SavingsMonth = dayjs(Savings.date).format("MM/YY");
+    const indexToUpdate = SavingssGrouped.findIndex((x) => x.monthYear === SavingsMonth);
+
+    if (indexToUpdate !== -1) {
+      SavingssGrouped[indexToUpdate].amount += Number(Savings.value);
+    } else {
+      SavingssGrouped.push({
+        monthYear: SavingsMonth,
+        amount: Number(Savings.value),
+      });
+    }
+  });
+
+  return {
+    labels: SavingssGrouped.map(x => x.monthYear),
+    datasets: [{ data: SavingssGrouped.map(x => x.amount )}]
+  };
+};
+
+export { LoadIncomeSummary, LoadSavingsSummary };

@@ -14,13 +14,20 @@ const styles = StyleSheet.create({
       textTransform: 'capitalize',
       backgroundColor: '#1B98E0',
       fontWeight: 'bold'
-    }, 
-    text: {
+    },
+    title: {
       fontFamily: 'Arial',
       fontSize: 18, 
       margin: 20,
       color: '#006494'
-    }
+    },
+    text: {
+      color: "#fff",
+      fontFamily: "Arial",
+      fontWeight: "bold",
+      textTransform: "capitalize",
+      backgroundColor: "#1B98E0"
+    },
   });
 
 export default styles;

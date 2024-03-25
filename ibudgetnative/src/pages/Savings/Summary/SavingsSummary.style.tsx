@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E8F1F2",
     justifyContent: "space-between",
   },
-  incomeText: {
+  SavingsText: {
     fontSize: 16,
     color: "#247BA0",
     fontFamily: "Arial",
